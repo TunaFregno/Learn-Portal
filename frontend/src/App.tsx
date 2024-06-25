@@ -22,7 +22,7 @@ function App() {
           count is {count}
         </button>
         <h1 className="text-3xl font-bold underline">
-          Hello world!
+          Hello world! from pl
         </h1>
         <p>
           holis <code>src/App.tsx</code> and save to test HMR
