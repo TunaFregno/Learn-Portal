@@ -1,0 +1,13 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
+{
+    "compilerOptions": {
+      "module": "CommonJS",
+      "moduleResolution": "node",
+      "strict": true,
+      "outDir": "./built",
+      "experimentalDecorators": true,
+      "emitDecoratorMetadata": true,
+      "esModuleInterop": true
+    },
+    "include": ["src/**/*"]
+  }
