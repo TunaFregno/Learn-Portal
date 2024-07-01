@@ -1,9 +1,11 @@
 .LoginTitle {
     font-weight: bolder;
-    font-size:120px;
-	letter-spacing: -0.15rem;
+    font-size:127px;
+	letter-spacing: -0.28rem;
     line-height: 7.2rem;
-    -webkit-text-fill-color: transparent;
+    -webkit-text-fill-color: white;
     -webkit-text-stroke-width: 1px;
     -webkit-text-stroke-color: white;
+    font-family: 'SpaceGrotesk';
+    margin-top: -29px;
 }

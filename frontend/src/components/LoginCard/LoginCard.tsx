@@ -4,12 +4,12 @@ import logo from '../../assets/images/Logo.png';
 
 const LoginCard = () => {
   return (
-    <div className="h-2/3 w-3/5 flex flex-col justify-center items-center bg-gray-50/10 rounded-lg text-white drop-shadow-xl border border-gray-50">
+    <div className="h-527 w-3/5 flex flex-col justify-center items-center bg-gray-50/10 text-white drop-shadow-xl border rounded-custom border-custom-gray">
         <div className="flex flex-row h-full">
             <div className="flex justify-center w-10/12">
                 <img src={logo} alt="Logo" className="h-28 w-24 mt-16" />
             </div>
-            <div className="flex flex-col ">
+            <div className="flex flex-col mono">
                 <div className="LoginTitle ">
                     YOUR PATH <br /> TO TECH
                 </div>
