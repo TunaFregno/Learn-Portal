@@ -1,0 +1,3 @@
+#the DB is in mondogd and to start it you must find the mongod binary file and then point to the dbpath, example below
+
+"C:\Program Files (x86)\mongodb\bin\mongod" --dbpath="C:\Program Files (x86)\mongodb\mongo-data"
