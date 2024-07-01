@@ -6,16 +6,25 @@ const CourseSchema = new mongoose.Schema({
         required: true,
         trim: true,
     },
-    videoURL: {
-        type: String,
-        required: false,
-        trim: true,
-    },
-    pptURL: {
-        type: String,
-        required: false,
-        trim: true,
-    },
+    Resource: [
+        {
+            Type: {
+                type: String,
+                required: true,
+                trim: true,
+            },
+            Title: {
+                type: String,
+                required: true,
+                trim: true,
+            },
+            Link: {
+                type: String,
+                required: true,
+                trim: true,
+            }
+        }
+    ],
     level: {
         type: Number,
         required: true,
