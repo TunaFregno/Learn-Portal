@@ -1,11 +1,12 @@
-
-import './LoginCard.css';
+import { Link } from 'react-router-dom';
+import MainCard from '../MainCard/MainCard';
 import logo from '../../assets/images/Logo.png';
+import './LoginCard.css';
 
 const LoginCard = () => {
   return (
-    <div className="h-527 w-3/5 flex flex-col justify-center items-center bg-gray-50/10 text-white drop-shadow-xl border rounded-custom border-custom-gray">
-        <div className="flex flex-row h-full">
+    <MainCard>
+        <div className="flex flex-row h-full text-white">
             <div className="flex justify-center w-10/12">
                 <img src={logo} alt="Logo" className="h-28 w-24 mt-16" />
             </div>
@@ -17,16 +18,20 @@ const LoginCard = () => {
                     Welcome to TechTrain Hub, your premier destination for mastering web, client, and server technologies. Whether you're a beginner or an experienced professional, our curated trainings and resources empower you to delve deeper into web development, client-side scripting, and server management.
                 </div>
                 <div className="flex space-x-4 text-white mt-10">
-                <button className="rounded-full py-2 px-8 border bg-gray-50/10 text-white py-2 px-4">
+                <Link 
+                    to='/'
+                    className="rounded-full py-2 px-8 border bg-gray-50/10 text-white py-2 px-4">
                     Admin
-                </button>
-                <button className="rounded-full py-2 px-8 border bg-gray-50/10 text-white py-2 px-4">
+                </Link>
+                <Link 
+                    to='/dashboard'
+                    className="rounded-full py-2 px-8 border bg-gray-50/10 text-white py-2 px-4">
                     Explore
-                </button>
+                </Link>
                 </div>
             </div>
         </div>
-    </div>
+    </MainCard>
   )
 }
 

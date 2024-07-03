@@ -8,6 +8,12 @@ export default {
     extend: {
       height: {
         '527': '527px',
+        '435': '435px'
+      },
+      width: {
+        '1024': '1024px',
+        '569': '569px',
+        '380': '380px',
       },
       fontFamily: {
         mono: ['SometypeMono']

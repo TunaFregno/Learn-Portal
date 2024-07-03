@@ -1,16 +1,9 @@
-import LoginCard from '../components/LoginCard/LoginCard';
-import '../assets/Background/background.css';
+import LoginCard from "../components/LoginCard/LoginCard"
 
 const HomePage = () => {
   return (
     <>
-      <div className="scrolling-background">
-        <div className="scrolling-text">
-          HELLO HELLO HELLO
-        </div>
-      </div>
-      <div className="gradient"></div>
-      <LoginCard />
+      <LoginCard/>
     </>
   )
 }
