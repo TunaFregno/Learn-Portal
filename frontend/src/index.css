@@ -4,12 +4,12 @@
 
 @font-face {
     font-family: "SometypeMono";
-    src: url("../public/fonts/SometypeMono-Regular.ttf");
+    src: url("/fonts/SometypeMono-Regular.ttf");
 }
 
 @font-face {
     font-family: "SpaceGrotesk";
-    src: url("../public/fonts/SpaceGrotesk-Bold.ttf");
+    src: url("/fonts/SpaceGrotesk-Bold.ttf");
 }
 
 :root {

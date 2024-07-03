@@ -12,7 +12,6 @@ const MainPage = () => {
         } else {
             setIsSelected(false);
         }
-        
     };
 
     return (
@@ -26,7 +25,7 @@ const MainPage = () => {
                         you'll gain a deep appreciation of the web's underlying framework and how various components interact to 
                         deliver seamless online experiences.
                     </span>
-                    <MainCard width='w-569' heigth='h-435'>
+                    <MainCard width='w-569' heigth='h-435'> 
                         <img src={dashboardIcon} alt="Logo" className="w-96"  />
                     </MainCard>
                     <div className="absolute w-569 border-b border-white right-0" >
