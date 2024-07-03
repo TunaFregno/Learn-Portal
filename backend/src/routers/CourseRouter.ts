@@ -292,7 +292,7 @@ router.post('/update/:id',  async (req, res)=>{
         return res.status(code.HTTP_INTERNAL_SERVER_ERROR).send(`${e}`);
 
     }
-
+ 
 })
 
 export default router;
