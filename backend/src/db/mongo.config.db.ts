@@ -1,7 +1,7 @@
 import {connect, ConnectOptions} from 'mongoose'
 
 export const dbConnect = ()=>{
-    connect(process.env.MONGO_URI ?? 'mongodb://127.0.0.1:27017/content', {
+    connect(process.env.MONGO_URI! , {
         //useNewUrlParser: true, [!!!!!!!deprecated]
         //useUnifiedTopology: true   [!!!!!!!deprecated]
     } as ConnectOptions).then(

@@ -1,12 +1,25 @@
 import mongoose from 'mongoose'
+import Category from './CategoryModel';
 
-const CourseSchema = new mongoose.Schema({
+interface course extends Document{
+    title:string;
+    resource:[{
+        Type: string,
+        Title: string,
+        Link: string,
+    }],
+    level: number,
+    tags: string[],
+    category: mongoose.Schema.Types.ObjectId,
+}
+
+const CourseSchema = new mongoose.Schema<course>({
     title: {
         type: String,
         required: true,
         trim: true,
     },
-    Resource: [
+    resource: [
         {
             Type: {
                 type: String,
@@ -22,7 +35,7 @@ const CourseSchema = new mongoose.Schema({
                 type: String,
                 required: true,
                 trim: true,
-            }
+            },
         }
     ],
     level: {
@@ -33,9 +46,10 @@ const CourseSchema = new mongoose.Schema({
         type: String,
         required: true,
     }],
-    category: {
-        type: String,
-        required: true,
+    category:{
+        type: mongoose.Schema.Types.ObjectId,
+        required:true,
+        ref: 'Category'
     }
 })
 
@@ -65,6 +79,7 @@ CourseSchema.pre('save', async function (next){
 
     }
 })
+
 
 export const Course = mongoose.model('Course', CourseSchema);
 export default Course;
