@@ -1,10 +1,10 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "this will be incharge of handling the comunication to the mongo db database, the backend is for a learning platform",
+  "description": "this will be in charge of handling the comunication to the mongo db database, the backend is for a learning platform",
   "main": "server.ts",
   "scripts": {
-    "dev": " nodemon ./src/server.ts",
+    "dev": " env-cmd -f src/cfg/.env nodemon ./src/server.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -17,6 +17,7 @@
   "author": "Gustavo & Valentina",
   "license": "ISC",
   "dependencies": {
+    "env-cmd": "^10.1.0",
     "express": "^4.19.2",
     "mongodb": "^6.8.0",
     "mongoose": "^8.4.4",
