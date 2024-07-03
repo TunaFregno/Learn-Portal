@@ -16,7 +16,7 @@ const MainPage = () => {
     };
 
     return (
-        <div className="absolute w-full h-full flex flex-col items-center">
+        <div className="absolute w-full h-full flex flex-col items-center justify-center">
             <h1 className='LoginTitle mt-16 mb-16' style={{WebkitTextFillColor: 'transparent'}}>WEB</h1>
             {isSelected ? (
                 <div className="w-8/12 text-white flex items-center justify-center ">

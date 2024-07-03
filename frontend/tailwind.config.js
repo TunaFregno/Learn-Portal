@@ -24,6 +24,9 @@ export default {
       borderRadius: {
         'custom': '1.4rem',
       },
+      padding: {
+        '20': '20rem'
+      }
     },
   },
   plugins: [],
