@@ -10,6 +10,8 @@ const CategoryeSchema = new mongoose.Schema<category>({
         required: true,
         trim: true
     }
+},{
+    timestamps:true
 })
 
 export const Category = mongoose.model<category>('Category',CategoryeSchema);

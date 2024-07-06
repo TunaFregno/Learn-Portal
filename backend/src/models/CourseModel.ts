@@ -1,23 +1,14 @@
 import mongoose from 'mongoose'
+import course from '../interfaces/course.interface'
 import Category from './CategoryModel';
 
-interface course extends Document{
-    title:string;
-    resource:[{
-        Type: string,
-        Title: string,
-        Link: string,
-    }],
-    level: number,
-    tags: string[],
-    category: mongoose.Schema.Types.ObjectId,
-}
 
 const CourseSchema = new mongoose.Schema<course>({
     title: {
         type: String,
         required: true,
         trim: true,
+        unique:true
     },
     resource: [
         {
@@ -46,11 +37,17 @@ const CourseSchema = new mongoose.Schema<course>({
         type: String,
         required: true,
     }],
+    score:{
+        type:Number,
+        default:0
+    },
     category:{
         type: mongoose.Schema.Types.ObjectId,
         required:true,
         ref: 'Category'
     }
+},{
+    timestamps:true
 })
 
 // Create a text index on the title field

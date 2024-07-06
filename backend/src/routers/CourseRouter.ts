@@ -1,9 +1,20 @@
 import express, {Router} from 'express'
 import * as code from '../shared/errors/errorlist'
+import jsoncoursevalidator from '../scripts/course/bulkCourseUploader'
 import Course from '../models/CourseModel';
 import Category from '../models/CategoryModel';
+import multer from 'multer';
 
 const router = Router();
+const upload = multer({
+    storage: multer.memoryStorage(),
+    fileFilter(req,file,cb){
+        if(!file.originalname.match(/\.(json)$/)){ //before: endsWith now match, to do the regular expression you must start and finish with '/'     for more extension use '|' to separate, example: json|txt
+            return cb(new Error('This file must be json!'))
+        }
+        return cb(null,true);
+    }
+});
 
 //check status of API ////////////////////////////////////////////////////////////
 router.get('/health', (req, res)=>{
@@ -35,7 +46,8 @@ router.post('/create', async (req, res)=>{
         })
 
         const validate = await Course.find({title:course.title}); // validates that no other course has the same name of this one.
-        if(validate){
+
+        if(validate.length>0){
             throw new Error('A course with the same name already exists');
         }
 
@@ -56,12 +68,18 @@ router.post('/create', async (req, res)=>{
 // tag = tags separated by a comma [web,mango,tv]
 // search = justa word or words to look a match in the DB
 // category = justa word from  category list
+// page = current page
+// limit= the amouint of elements per page
 router.get('/explore',  async (req, res)=>{
     
     
     const tags = req.query.tags ? req.query.tags : '';
     const searchTerm = req.query.search ? req.query.search : null;
     const category = req.query.category ? req.query.category : null;
+    
+    const page =  (req.body.page || req.query.page) ?? 1; // Default to page 1 if not provided
+    const limit = (req.body.limit || req.query.limit)  ?? 3; // Default to 3 skips if not provided
+    
     let tagList:string[] = [];
 
     interface queryList {
@@ -98,7 +116,9 @@ router.get('/explore',  async (req, res)=>{
             query.category = topic._id;
         }
 
-        const courses = await Course.find( query ).populate({path:'category'}); // looks for the courses that match the description
+        const skip = (+page - 1) * +limit; // Calculate the skip value
+
+        const courses = await Course.find( query ).limit(+limit).skip(skip).sort({ createdAt: -1, name: 1, score:-1 }).populate({path:'category'}); // looks for the courses that match the description
 
         return res.status(code.HTTP_OK).send(courses);
 
@@ -151,12 +171,16 @@ router.get('/topics/:rps',  async (req, res)=>{
 // [READ] get list of items based on level of difficulty or specialization (or combined) ////////////////////////////////////////////////////////////
 // rps = is the specialization and can be web, client or server
 // level = a number and could be 100,200,300,400,500...
+// page = current page
+// limit= the amouint of elements per page
 //
 // example  /learn?specialty=web&level=100
 router.get('/learn',  async (req, res)=>{
     
     const topic = req.query.category ?? null;
     const level = req.query.level ?? null;
+    const page =  (req.body.page || req.query.page) ?? 1; // Default to page 1 if not provided
+    const limit = (req.body.limit || req.query.limit)  ?? 3; // Default to 3 skips if not provided
 
     interface queryList {
         level?:{},
@@ -188,7 +212,9 @@ router.get('/learn',  async (req, res)=>{
             query.level = level;
         }
         
-        const courses = await Course.find(query).populate({ path: 'category',select: 'CategoryName'}); // makes the query based on the given data
+        const skip = (+page - 1) * +limit; // Calculate the skip value
+
+        const courses = await Course.find(query).limit(+limit).skip(skip).sort({ createdAt: -1, name: 1, score:-1 }).populate({ path: 'category',select: 'CategoryName'}); // makes the query based on the given data
 
         if(courses.length <=0){ // if there are les or equal to 0 items will give an error
             return res.status(code.HTTP_NOT_FOUND).send('No item was found in DB');
@@ -294,5 +320,33 @@ router.post('/update/:id',  async (req, res)=>{
     }
  
 })
+
+//This lets the admin upload a bulk of courses via a json file instaed of just one by one, the name of the file header must be called bulkfile
+router.post('/bulk', upload.single('bulkfile') , async(req,res)=>{
+
+       
+    try{
+
+        if(!req.file){ // check if you got a file
+            throw new Error('No file was provided');
+        }
+
+        const jsonData = JSON.parse(req.file.buffer.toString('utf-8')) //from the multer buffer to json data
+
+        const validateResult = await jsoncoursevalidator(jsonData); //cehck that categories exist and titles are not repeated before the mass upload
+
+        if(validateResult.error){ // somethign happened 
+            throw new Error(validateResult.error);
+        }
+
+        await Course.insertMany(jsonData); // mass upload to db
+        return res.status(code.HTTP_OK).send(`${validateResult.result}`);
+
+    }catch(e){
+        return res.status(code.HTTP_INTERNAL_SERVER_ERROR).send(`${e}`);
+    }
+
+
+});
 
 export default router;
